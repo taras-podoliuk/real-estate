@@ -92,10 +92,10 @@ export const getProperties = async (
         if (!isNaN(date.getTime())) {
           whereConditions.push(
             Prisma.sql`EXISTS (
-                SELECT 1 FROM "Lease" l 
-                WHERE l."propertyId" = p.id 
-                AND l."startDate" <= ${date.toISOString()}
-              )`
+              SELECT 1 FROM "Lease" l 
+              WHERE l."propertyId" = p.id 
+              AND l."startDate" <= ${date.toISOString()}
+            )`
           );
         }
       }
@@ -109,10 +109,10 @@ export const getProperties = async (
 
       whereConditions.push(
         Prisma.sql`ST_DWithin(
-            l.coordinates::geometry,
-            ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326),
-            ${degrees}
-          )`
+          l.coordinates::geometry,
+          ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326),
+          ${degrees}
+        )`
       );
     }
 
@@ -183,10 +183,10 @@ export const getProperty = async (
       };
       res.json(propertyWithCoordinates);
     }
-  } catch (error: any) {
+  } catch (err: any) {
     res
       .status(500)
-      .json({ message: `Error retrieving property: ${error.message}` });
+      .json({ message: `Error retrieving property: ${err.message}` });
   }
 };
 
