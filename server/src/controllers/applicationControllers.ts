@@ -17,7 +17,7 @@ export const listApplications = async (
         whereClause = { tenantCognitoId: String(userId) };
       } else if (userType === "manager") {
         whereClause = {
-          propery: {
+          property: {
             managerCognitoId: String(userId),
           },
         };
