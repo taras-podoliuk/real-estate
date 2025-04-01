@@ -299,14 +299,22 @@ export const getPropertyLeases = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const property = await prisma.property.findUnique({
-      where: { id: Number(id) },
+    // const property = await prisma.property.findUnique({
+    //   where: { id: Number(id) },
+    //   include: {
+    //     leases: true,
+    //   },
+    // });
+    const leasesWithTenants = await prisma.lease.findMany({
+      where: {
+        propertyId: Number(id),
+      },
       include: {
-        leases: true,
+        tenant: true,
       },
     });
 
-    res.json(property?.leases);
+    res.json(leasesWithTenants);
   } catch (error: any) {
     res
       .status(500)
