@@ -4,11 +4,11 @@ import Navbar from "@/components/Navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Sidebar from "@/components/AppSidebar";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
-import React, { useEffect, useState } from "react";
 import { useGetAuthUserQuery } from "@/state/api";
 import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+function DashboardProvider({ children }: { children: React.ReactNode }) {
   const { data: authUser, isLoading: authLoading } = useGetAuthUserQuery();
   const router = useRouter();
   const pathname = usePathname();
@@ -30,6 +30,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       } else {
         setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   }, [authUser, router, pathname]);
 
@@ -51,6 +53,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
     </SidebarProvider>
   );
-};
+}
 
-export default DashboardLayout;
+export default DashboardProvider;

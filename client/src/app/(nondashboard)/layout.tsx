@@ -6,7 +6,7 @@ import { useGetAuthUserQuery } from "@/state/api";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+function NondashboardLayout({ children }: { children: React.ReactNode }) {
   const { data: authUser, isLoading: authLoading } = useGetAuthUserQuery();
   const router = useRouter();
   const pathname = usePathname();
@@ -23,6 +23,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       } else {
         setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   }, [authUser, router, pathname]);
 
@@ -39,6 +41,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </main>
     </div>
   );
-};
+}
 
-export default Layout;
+export default NondashboardLayout;
