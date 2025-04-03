@@ -215,7 +215,7 @@ export const createProperty = async (
         const uploadParams = {
           Bucket: process.env.S3_BUCKET_NAME!,
           Key: `properties/${Date.now()}-${file.originalname}`,
-          body: file.buffer,
+          Body: file.buffer,
           ContentType: file.mimetype,
         };
 
